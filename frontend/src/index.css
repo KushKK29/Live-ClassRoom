@@ -145,10 +145,67 @@ html, body, #root {
 
 /* SVG centering */
 .lk-custom-mic-btn svg, .lk-custom-cam-btn svg, .lk-custom-share-btn svg {
-  width: 22px !important;
-  height: 22px !important;
+  width: 17px !important;
+  height: 16px !important;
   display: block !important;
   margin: 0 auto !important;
+}
+
+/* Chat Form Spreading Fix */
+.lk-chat {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+.lk-chat-messages {
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+}
+
+.lk-chat-form {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 8px !important;
+  width: 100% !important;
+  padding: 12px !important;
+  background-color: #111827 !important;
+  border-top: 1px solid #374151 !important;
+  box-sizing: border-box !important;
+  margin-top: auto !important;
+  flex-shrink: 0 !important;
+}
+
+.lk-chat-form-input {
+  flex: 1 !important;
+  width: 100% !important;
+  padding: 8px 12px !important;
+  background-color: #1f2937 !important;
+  border: 1px solid #374151 !important;
+  color: white !important;
+  border-radius: 8px !important;
+  outline: none !important;
+}
+
+.lk-chat-form-input:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 1px #3b82f6 !important;
+}
+
+.lk-chat-form-button {
+  padding: 8px 16px !important;
+  background-color: #2563eb !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s !important;
+  flex-shrink: 0 !important;
+}
+
+.lk-chat-form-button:hover {
+  background-color: #1d4ed8 !important;
 }
 
 /* Popout Menu / Dropdown theming */
