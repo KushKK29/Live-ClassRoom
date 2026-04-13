@@ -82,6 +82,69 @@ html, body, #root {
    Customized LiveKit ControlBar (Matching the User Image)
    ========================================================================= */
 
+/* Groups to hold the toggle and the device menu selector */
+.custom-lk-group {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: #1f2937 !important; /* wrapper pill */
+  border-radius: 9999px !important;
+  padding: 4px !important;
+  gap: 4px !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+}
+.custom-lk-group::after {
+  display: none !important; /* override LiveKit default borders */
+}
+
+.lk-button-group-menu {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+  border-radius: 9999px !important;
+}
+
+/* The custom dropdown chevron button */
+.lk-custom-device-btn {
+  background: transparent !important;
+  border: none !important;
+  color: #9ca3af !important; /* gray-400 */
+  padding: 0 8px !important;
+  height: 38px !important;
+  min-width: 30px !important;
+  border-radius: 9999px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
+}
+.lk-custom-device-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+}
+.lk-custom-device-btn::after {
+  content: "" !important;
+  display: inline-block !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-left: 4px solid transparent !important;
+  border-right: 4px solid transparent !important;
+  border-top: 5px solid currentColor !important;
+  margin: auto !important;
+}
+
+/* Hide scrollbar for the control bar on mobile while keeping it scrollable if it over-extends */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* The main wrapper of ControlBar */
 .lk-custom-mic-btn, .lk-custom-cam-btn, .lk-custom-share-btn {
   display: flex !important;
@@ -89,9 +152,9 @@ html, body, #root {
   justify-content: center !important;
   padding: 0 !important;
   margin: 0 !important;
-  width: 50px !important;
-  height: 50px !important;
-  min-width: 50px !important;
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
   border-radius: 9999px !important; /* Perfect Circles */
   border: none !important;
   transition: all 0.2s ease !important;
@@ -104,9 +167,9 @@ html, body, #root {
 
 @media (min-width: 640px) {
   .lk-custom-mic-btn, .lk-custom-cam-btn, .lk-custom-share-btn {
-    width: 54px !important;
-    height: 54px !important;
-    min-width: 54px !important;
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
   }
 }
 
@@ -218,18 +281,27 @@ html, body, #root {
   color: white !important;
   padding: 4px !important;
   font-size: 14px !important;
+  max-width: 85vw !important; /* Prevent from blowing past mobile screen widths */
+  z-index: 9999 !important; /* Ensure it is absolutely above everything else */
 }
-.lk-device-menu > li {
+.lk-device-menu > .lk-list > li > button {
+  width: 100% !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
   padding: 8px 12px !important;
   cursor: pointer !important;
   border-radius: 8px !important;
+  background: transparent !important;
+  border: none !important;
+  color: white !important;
 }
-.lk-device-menu > li:hover {
+.lk-device-menu > .lk-list > li > button:hover {
   background-color: #374151 !important;
 }
-.lk-device-menu > li[data-active="true"] {
+.lk-device-menu > .lk-list > li[data-lk-active="true"] > button {
   background-color: #2563eb !important;
-  color: white !important;
 }
 
 /* Match the exact image layout of Disconnect Button */

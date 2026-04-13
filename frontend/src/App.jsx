@@ -9,7 +9,8 @@ import {
   DisconnectButton,
   ControlBar,
   Chat,
-  TrackToggle
+  TrackToggle,
+  MediaDeviceMenu
 } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 
@@ -74,33 +75,43 @@ const ChatPanel = ({ isChatOpen, toggleChat }) => {
 
 const CustomControlBar = ({ isChatOpen, toggleChat }) => {
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 sm:gap-4 bg-[#0B0C10] px-4 py-3 sm:px-6 sm:py-3 rounded-[2.5rem] border border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.8)] z-40 flex-nowrap w-max max-w-[95%] overflow-x-auto">
+    <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-center gap-1 sm:gap-4 bg-[#0B0C10] px-2 py-2 sm:px-6 sm:py-3 rounded-[2.5rem] border border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.8)] z-[999] flex-nowrap w-max max-w-[100vw] overflow-visible">
       
-      {/* Red Circular Mic Toggle */}
-      <TrackToggle source={Track.Source.Microphone} className="lk-custom-mic-btn" />
+      <div className="lk-button-group custom-lk-group flex-shrink-0">
+        {/* Red Circular Mic Toggle */}
+        <TrackToggle source={Track.Source.Microphone} className="lk-custom-mic-btn" />
+        <div className="lk-button-group-menu">
+          <MediaDeviceMenu kind="audioinput" className="lk-custom-device-btn" />
+        </div>
+      </div>
       
-      {/* Red Circular Camera Toggle */}
-      <TrackToggle source={Track.Source.Camera} className="lk-custom-cam-btn" />
+      <div className="lk-button-group custom-lk-group flex-shrink-0">
+        {/* Red Circular Camera Toggle */}
+        <TrackToggle source={Track.Source.Camera} className="lk-custom-cam-btn" />
+        <div className="lk-button-group-menu">
+          <MediaDeviceMenu kind="videoinput" className="lk-custom-device-btn" />
+        </div>
+      </div>
       
       {/* Grey Circular Screen Share */}
-      <TrackToggle source={Track.Source.ScreenShare} className="lk-custom-share-btn hidden sm:flex" />
+      <TrackToggle source={Track.Source.ScreenShare} className="lk-custom-share-btn hidden sm:flex flex-shrink-0" />
       
-      <div className="w-[1px] h-8 bg-gray-700 mx-1 sm:mx-2 flex-shrink-0"></div>
+      <div className="w-[1px] h-8 bg-gray-700 mx-1 flex-shrink-0"></div>
       
       {/* Blue Circular Chat Toggle */}
       <button 
         onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleChat(); }}
-        className={`flex items-center justify-center min-w-[50px] w-[50px] h-[50px] sm:w-[54px] sm:h-[54px] rounded-full transition-all flex-shrink-0 z-50 relative pointer-events-auto cursor-pointer ${
+        className={`flex items-center justify-center min-w-[44px] w-[44px] h-[44px] sm:min-w-[54px] sm:w-[54px] sm:h-[54px] rounded-full transition-all flex-shrink-0 z-50 relative pointer-events-auto cursor-pointer ${
           isChatOpen ? 'bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.5)]' : 'bg-[#2563eb] text-white hover:bg-blue-600 hover:scale-105'
         }`}
       >
-        <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
         </svg>
       </button>
       
       {/* Rounded-Square Leave Button */}
-      <DisconnectButton className="min-w-[50px] w-[50px] h-[50px] sm:w-[60px] sm:h-[54px] bg-[#1a1c23] border-[1.5px] border-red-500 rounded-[14px] flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-all ml-1 sm:ml-2 flex-shrink-0 lk-leave-custom relative pointer-events-auto cursor-pointer z-50">
+      <DisconnectButton className="min-w-[54px] w-[54px] h-[44px] sm:min-w-[60px] sm:w-[60px] sm:h-[54px] bg-[#1a1c23] border-[1.5px] border-red-500 rounded-[14px] flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-all ml-1 flex-shrink-0 lk-leave-custom relative pointer-events-auto cursor-pointer z-50">
         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"/>
         </svg>
