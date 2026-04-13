@@ -44,13 +44,13 @@ const ChatPanel = ({ isChatOpen, toggleChat }) => {
       {/* Mobile overlay backdrop - clicking it closes chat */}
       {isChatOpen && (
         <div 
-          className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/60 z-[9990] lg:hidden"
           onClick={toggleChat}
         ></div>
       )}
       
       <div className={`
-        fixed inset-y-0 right-0 z-50 w-full sm:w-[380px] bg-[#111827] border-l border-gray-800 flex flex-col shadow-2xl transform transition-transform duration-300 ease-in-out
+        fixed inset-y-0 right-0 z-[9999] w-full sm:w-[380px] bg-[#111827] border-l border-gray-800 flex flex-col shadow-2xl transform transition-transform duration-300 ease-in-out
         lg:relative lg:translate-x-0 lg:z-10
         ${isChatOpen ? 'translate-x-0' : 'translate-x-full lg:hidden lg:w-0 lg:opacity-0'}
       `}>
