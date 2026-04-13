@@ -262,6 +262,7 @@ function Room() {
         <LiveKitRoom
           video={true}
           audio={true}
+          connect={true}
           token={token}
           serverUrl={LIVEKIT_URL}
           data-lk-theme="default"
