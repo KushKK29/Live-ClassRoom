@@ -55,9 +55,13 @@ const ChatPanel = ({ isChatOpen, toggleChat }) => {
         {/* Mobile close button header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-800 bg-[#111827]">
           <h3 className="text-white font-medium">In-call messages</h3>
-          <button onClick={toggleChat} className="text-gray-400 hover:text-white p-1 rounded-md hover:bg-gray-800 transition">
+          <button 
+            type="button" 
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleChat(); }} 
+            className="text-gray-400 hover:text-white p-2 bg-gray-800/80 rounded-lg hover:bg-gray-700 transition relative z-[9999] pointer-events-auto cursor-pointer flex-shrink-0 min-w-[40px] min-h-[40px] flex items-center justify-center touch-manipulation"
+          >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
@@ -69,30 +73,33 @@ const ChatPanel = ({ isChatOpen, toggleChat }) => {
 
 const CustomControlBar = ({ isChatOpen, toggleChat }) => {
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-1 sm:gap-2 bg-[#0B0C10] px-4 py-2 sm:py-3 rounded-[2rem] border border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.8)] z-40">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 sm:gap-4 bg-[#0B0C10] px-4 py-3 sm:px-6 sm:py-3 rounded-[2.5rem] border border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.8)] z-40 flex-nowrap w-max max-w-[95%] overflow-x-auto">
       
-      {/* Native ControlBar configured for perfect device selection drop-down syncing */}
-      <ControlBar
-        controls={{ microphone: true, camera: true, screenShare: true, chat: false, leave: false }}
-        className="lk-custom-meet-bar !p-0 !bg-transparent !border-0 !shadow-none"
-      />
+      {/* Red Circular Mic Toggle */}
+      <TrackToggle source={Track.Source.Microphone} className="lk-custom-mic-btn" />
       
-      <div className="w-[1px] h-8 bg-gray-700 mx-1 sm:mx-2 block"></div>
+      {/* Red Circular Camera Toggle */}
+      <TrackToggle source={Track.Source.Camera} className="lk-custom-cam-btn" />
       
-      {/* Custom Chat Toggle colored Blue */}
+      {/* Grey Circular Screen Share */}
+      <TrackToggle source={Track.Source.ScreenShare} className="lk-custom-share-btn hidden sm:flex" />
+      
+      <div className="w-[1px] h-8 bg-gray-700 mx-1 sm:mx-2 flex-shrink-0"></div>
+      
+      {/* Blue Circular Chat Toggle */}
       <button 
-        onClick={toggleChat}
-        className={`flex items-center justify-center w-[48px] h-[48px] sm:w-[54px] sm:h-[54px] rounded-full transition-all flex-shrink-0 ${
-          isChatOpen ? 'bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.5)]' : 'bg-blue-500 text-white hover:bg-blue-600 hover:scale-105'
+        onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleChat(); }}
+        className={`flex items-center justify-center min-w-[50px] w-[50px] h-[50px] sm:w-[54px] sm:h-[54px] rounded-full transition-all flex-shrink-0 z-50 relative pointer-events-auto cursor-pointer ${
+          isChatOpen ? 'bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.5)]' : 'bg-[#2563eb] text-white hover:bg-blue-600 hover:scale-105'
         }`}
       >
-        <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+        <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
         </svg>
       </button>
       
-      {/* Custom Leave Button shaped as rounded-square */}
-      <DisconnectButton className="w-[48px] h-[48px] sm:w-[60px] sm:h-[54px] bg-transparent border-[1.5px] border-red-500 rounded-[16px] flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-all ml-1 sm:ml-2 flex-shrink-0 lk-leave-custom">
+      {/* Rounded-Square Leave Button */}
+      <DisconnectButton className="min-w-[50px] w-[50px] h-[50px] sm:w-[60px] sm:h-[54px] bg-[#1a1c23] border-[1.5px] border-red-500 rounded-[14px] flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-all ml-1 sm:ml-2 flex-shrink-0 lk-leave-custom relative pointer-events-auto cursor-pointer z-50">
         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"/>
         </svg>
@@ -195,7 +202,12 @@ function Room() {
     setError("");
 
     try {
-      const response = await fetch('http://localhost:5000/getToken', {
+      // Use production backend URL if deployed, otherwise fallback to localhost
+      const backendUrl = import.meta.env.PROD 
+        ? 'https://live-classroom.onrender.com' 
+        : 'http://localhost:5000';
+
+      const response = await fetch(`${backendUrl}/getToken`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ roomId, username }),
