@@ -8,7 +8,8 @@ import {
   useTracks,
   DisconnectButton,
   ControlBar,
-  Chat
+  Chat,
+  TrackToggle
 } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 
